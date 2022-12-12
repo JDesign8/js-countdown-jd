@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div id="hero">
+    <h1>Countdown to Chrismas!</h1>
+    <h1 id="countdown">loading countdown...</h1>
+</div>
+
+<script>
+function convertToDaysLeft(milliseconds) {
+
+return Math.floor(milliseconds / (1000 * 60 * 60 * 24));
+
+}
+
+
+
+function convertToHoursLeft(milliseconds) {
+return Math.floor(
+  (milliseconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+}
+
+
+
+function convertToMinutesLeft(milliseconds) {
+return Math.floor(
+  (milliseconds % (1000 * 60 * 60)) / (1000 * 60)
+  );
+}
+
+
+
+function convertToSecondsLeft(milliseconds) {
+return Math.floor(
+  (milliseconds % (1000 * 60)) / 1000
+  );
+}
+
+function formatCountdownText(days, hours, minutes, seconds) {
+return `${days}d ${hours}h ${minutes}m ${seconds}s left`;
+}
+
+//Variables
+//KNAV 
+let deadlineForChristmas = new Date("December 25, 2022 13:00:00");
+let countdown = document.getElementById('countdown');
+countdown.innerHTML = "Countdown to Christmas 2022!";
+
+function setCountdown(){
+//date with no params gets the current date and time in JS
+let now = new Date();
+//upon calling the function get our current date and time with now
+let timeLeft = deadlineForChristmas.getTime() - now.getTime();
+//subtract the deadline time from our current time
+  let daysLeft = convertToDaysLeft(timeLeft);
+  let hoursLeft = convertToHoursLeft(timeLeft);
+  let minutesLeft = convertToMinutesLeft(timeLeft);
+  let secondsLeft = convertToSecondsLeft(timeLeft);
+  
+  countdown.innerHTML = 
+    formatCountdownText(daysLeft, hoursLeft, minutesLeft, secondsLeft);
+};
+
+setInterval(setCountdown, 1000);
+
+
+
+</script>
+  
+</body>
+</html>
